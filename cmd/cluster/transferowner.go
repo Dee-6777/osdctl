@@ -33,6 +33,7 @@ const CheckSyncMaxAttempts = 24
 
 // transferOwnerOptions defines the struct for running transferOwner command
 type transferOwnerOptions struct {
+	hcp          bool
 	output       string
 	clusterID    string
 	newOwnerName string
@@ -60,6 +61,7 @@ func newCmdTransferOwner(streams genericclioptions.IOStreams, globalOpts *global
 	transferOwnerCmd.Flags().StringVar(&ops.newOwnerName, "new-owner", ops.newOwnerName, "The new owners username to transfer the cluster to")
 	transferOwnerCmd.Flags().BoolVarP(&ops.dryrun, "dry-run", "d", false, "Dry-run - show all changes but do not apply them")
 	transferOwnerCmd.Flags().StringVar(&ops.reason, "reason", "", "The reason for this command, which requires elevation, to be run (usualy an OHSS or PD ticket)")
+	transferOwnerCmd.Flags().BoolVar(&ops.hcp, "hcp", false, "Flag to indicate if the cluster is an HCP cluster")
 
 	_ = transferOwnerCmd.MarkFlagRequired("cluster-id")
 	_ = transferOwnerCmd.MarkFlagRequired("new-owner")
